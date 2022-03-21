@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis-cache
+  labels:
+    cache: redis
+spec:
+  containers:
+  - name: redis
+    image: redis:latest
+    env:
+    - name: DBURL
+      valueFrom:
+          configMapKeyRef:
+              name: {{ .Release.Name }}-configmap
+              key: dburl
